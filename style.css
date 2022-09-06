@@ -1,0 +1,8 @@
+body {
+    margin: 0px; 
+}
+.MainDocument {
+    height: 100vh;
+    display: flex;
+    position: relative;
+}

@@ -1,0 +1,284 @@
+.Content {
+   display: flex;
+   flex-direction: column;
+   flex-grow: 1;
+}
+
+.Content_header {
+    height: 56px;
+    background-color: rgb(236, 236, 236);
+    min-height: 40px;
+    padding-left: 24px;
+    padding-right: 13px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    align-items: center;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+.Content_HeaderIcons span{
+
+}
+.Content_avatar img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-right: 10px;
+}
+.Content_HeaderChatInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 36px;
+    min-width: 107px;
+}
+.Content_HeaderChatInfo h3{
+    font-size: 16px;
+    margin: 0px;
+}
+.Content_HeaderChatInfo span{
+    font-size: 12px;
+    line-height: 18px;
+    color: rgb(153 150 150);
+}
+.Content_headerIcons span {
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.6s linear;
+    padding: 5px;
+}
+.Content_headerIcons span:hover {
+    background-color: rgb(187, 184, 184);
+    
+}
+.Content_body {
+    flex-grow: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/*фон на весь экран, где чат*/
+
+.Content_body_Background {
+    min-width: 406px;
+    display: contents;
+}
+.Content_body_BackgroundImage {
+    background-image: url(./imgs/background2.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.6;
+}
+.Content_body_BackgroundImageSecond {
+    background-image: url(./imgs/background_white.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+}
+.Content_AlignCenterblock {
+    position: relative;
+    height: 100%;
+    width: 600px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+}
+/*диалог пользователей*/
+
+.Content_messages {
+    flex-grow: 1;
+    overflow-y:auto;
+    height: 1px;
+    padding: 40px 0px;
+}
+.Content_messages::-webkit-scrollbar {
+    width: 0;
+}
+.Content_messageRaw {
+    display: flex;
+    margin-top: 10px;
+}
+
+.Content_myMessage {
+    justify-content: flex-end;
+    display: flex;
+    margin-top: 10px;
+    position: relative;
+}
+.Content_yourMessage {
+    justify-content: flex-start;
+    display: flex;
+    margin-top: 10px;
+    position: relative;
+}
+.Content_messageText {
+
+}
+/* .Content_messageTimes {
+    position: absolute;
+    color: gray;
+    top: 21px;
+    right: 15px;
+    cursor: pointer;
+    direction: ltr;
+    font-size: 12px;
+} */
+.Content_messageTimes--my {
+    position: absolute;
+    color: gray;
+    top: 26px;
+    right: 15px;
+    cursor: pointer;
+    direction: ltr;
+    font-size: 12px;
+}
+.Content_messageTimes--your {
+    position: absolute;
+    color: gray;
+    top: 26px;
+    right: 11px;
+    cursor: pointer;
+    direction: ltr;
+    font-size: 12px;
+}
+.Content_message {
+    background-color: white;
+    border-radius: 12px;
+    padding: 12px;
+}
+/*нижняя панель типо для отправки сообщений в диалоговое поле */
+
+.Content_newMassage {
+    display: flex;
+    margin-bottom: 15px;
+}
+.Content_newMassageArea {
+    width: 100px;
+    height: 56px;
+    background-color: white;
+    border-radius: 15px 15px 0px 15px;
+    flex-grow: 1;
+    box-shadow: 0 1px 2px rgba(114,114,114,0.25098);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+.Content_newMassageInput {
+    flex-grow: 1;
+    outline: none;
+    border: none;
+    margin: 0 10px;
+}
+.Content_newMassageRecord {
+    width: 56px;
+    height: 56px;
+    background-color: white;
+    margin-left: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color linear 0.4s, color linear 0.4s;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+.Content_newMassage .Content_newMassageIcon {
+    font-size: 24px;
+    cursor: pointer;
+}
+.Content_newMassageRecord:hover {
+    color: white !important;
+    background-color: var(--color-primary) !important;
+}
+.Content_newMassageRecord .fa-microphone {
+    position: absolute;
+}
+
+.Content_newMassageSvg {
+    align-self: flex-end;
+    position: relative;
+    top: 3px;
+}
+.Content_message--my{
+    border-radius: 12px 12px 0 12px;
+    background-color: #9fe4ff;
+    display: flex;
+}
+.Content_myMessageSvg{
+    align-self: flex-end;
+    position: relative;
+    top: 3px;
+}
+
+.Content_message--your{
+    border-radius: 12px 12px 12px 0px;
+    display: flex;
+    position: relative;
+}
+.Content_yourMessageSvg{
+    align-self: flex-end;
+    position: relative;
+    top: 3px;
+    transform: scale(-1, 1)
+}
+/*это вариант когда нужен микурофон*/
+
+.record.Content_newMassageRecord .fa-microphone {
+    animation: grow-icon .4s ease-in;
+}
+/*это вариант когда нужен конверт*/
+.record.Content_newMassageRecord .fa-paper-plane-o {
+    animation: hide-icon .4s ease-in forwards;
+}
+
+/*это вариант когда нужен микурофон*/
+
+.send.Content_newMassageRecord .fa-microphone {
+    animation: hide-icon .4s ease-in forwards;
+}
+/*это вариант когда нужен конверт*/
+.send.Content_newMassageRecord .fa-paper-plane-o {
+    animation: grow-icon .4s ease-in;
+}
+
+@keyframes grow-icon {
+    0% {
+        transform: scale(0.5);
+        opacity: .8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes hide-icon {
+    0% {
+        transform: scale(1);
+        opacity: .4;
+    }
+    100% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,121 @@
+.SidebarLeft {
+    background-color: rgb(236, 236, 236);
+    width: 422px; 
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+.SidebarLeft_header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0px 15px;
+    background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.SidebarLeft_headerIcon {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    padding: 15px;
+    cursor: pointer;
+    align-items: center;   
+}
+.SidebarLeft_headerIcon span {
+    transition: background-color linear 0.4s, border-radius linear 0.4s;
+    padding: 5px;
+}
+
+.SidebarLeft_headerIcon span:hover {
+    background-color: rgb(187, 184, 184);
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.SidebarLeft_search {
+    flex-grow: 1;
+    height: 40px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    cursor: default;
+}
+.SidebarLeft_searchIcon {
+    display: block;
+    width: 20px;
+    position: absolute;
+    color: rgb(153 150 150);
+    height: 20px;
+    box-sizing: border-box;
+    margin-right: 14px;
+    background-image: url(./search_FILL0_wght300_GRAD0_opsz24.svg);
+    pointer-events: none;
+    box-sizing: border-box;
+    filter: opacity(0.5);
+}
+.SidebarLeft_searchInput {
+    width: 100%;
+    height: 100%;
+    color: rgb(0, 0, 0);
+    border-radius: inherit;
+    display: inline-block;
+    box-sizing: border-box;
+    border-color: rgb(198 3 114);
+    padding: 15px;
+}
+.SidebarLeft_searchTime {
+    position: absolute;
+    color: gray;
+    top: 0px;
+    left: 354px;
+    font-size: 15px;
+}
+.SidebarLeft_body {
+    overflow-y: hidden;
+    flex-grow: 1;
+    
+}
+.SidebarLeft_body:hover {
+    overflow-y: scroll;
+} 
+.SidebarLeft_body::-webkit-scrollbar-thumb {
+    background-color: rgb(124, 124, 124);
+}
+.SidebarLeft_body::-webkit-scrollbar-thumb:vertical {
+    height: 30px;
+    background-color: #636161;
+    }
+
+.SidebarLeft_chat {
+    margin: 12px;
+    padding: 12px;
+/*     background-color: rgb(217, 215, 215); */
+    border-radius: 12px;
+    position: relative;
+}
+
+.SidebarLeft_avatar img{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+.SidebarLeft_HeaderChatInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 36px;
+    min-width: 107px;
+}
+.SidebarLeft_HeaderChatInfo h3{
+    font-size: 16px;
+    margin: 0px;
+}
+.SidebarLeft_HeaderChatInfo span{
+    font-size: 14px;
+    line-height: 18px;
+    color: rgb(153 150 150);
+}
