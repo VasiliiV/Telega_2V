@@ -99,7 +99,7 @@ const chats = [
     }
 ];
 
-const messages = [
+let messages = [
     {
         text: '123sdfsdfsdf',
         time: '19:10'
@@ -108,7 +108,17 @@ const messages = [
         text: '123sdfsdfsdf',
         time: '19:10'
     },
-]
+];
+
+messages = messages.map((message, index) => {
+    if (index % 2) {
+        message.type = 'my'
+    } else {
+        message.type = 'your';
+    }
+    return message;
+});
+console.log(messages)
 
 module.exports = {
     messages,
