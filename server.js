@@ -14,6 +14,17 @@ const requestListener = function (req, res) {
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(html);
         res.end('');
+    } else if (req.url === '/login') {
+        const html = fs.readFileSync("./login.html");
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
+        res.end('');
+    }
+    else if (req.url === '/register') {
+        const html = fs.readFileSync("./register.html");
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
+        res.end('');
     } 
 //js    
     else if(req.url === '/mock.js') {
@@ -123,6 +134,9 @@ const requestListener = function (req, res) {
         res.end(stringData);
     }
     else {
+        const html = fs.readFileSync("./error.html");
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.write(html);
         res.end('')
     }
 };
