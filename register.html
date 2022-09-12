@@ -3,12 +3,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Register</title>
+    <link rel="shortcut icon" href="./imgs/1646438278_4-damion-club-p-obezyana-s-sigaroi-art-4.jpg" type="image/jpeg">
 </head>
 <style>
     body {
         margin: 0;
-        background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+        /* background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%); */
     }
     .main {
         min-height: 100vh;
@@ -17,47 +18,111 @@
         align-items: center;
         flex-direction: column;
     }
-    .reg_button {
+    .FieldInput {
+        outline: none;
+        border-width: 0;
+        border-bottom-width: 2;
+        width: 220px;
+        height: 32px;
+    }
+    .FieldInput:focus {
+        border-color: #61a8de;
+    }
+    .RegButton {
         text-transform: uppercase;
         cursor: pointer;
         margin-top: 30px;
-        width: 110px;
-        height: 35px;
+        width: 156px;
+        height: 36px;
+        border-radius: 50px;
+        background-color: var(--blur-color);
+        --blur-color: #61a8de;
+        border: 0;
+        animation-name: reg_button;
+        animation-duration: 10s;
+        animation-delay: 2s;
+        transition: opacity .1s linear;
+        color: white;
+        font-weight: 600;
+    }
+    .RegButton:hover {
+        opacity: 0.9;
+    }
+    /* @keyframes reg_button */ {
+        100% {
+            background: #00d2ff;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #928DAB, #00d2ff);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #928DAB, #00d2ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
     }
     .table {
-        width: 448px;
-        height: 410px;
-        background-color: #DCD9D4;
+        /* width: 448px;
+        height: 410px; */
+        /* background-color: #DCD9D4;
         background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
-        background-blend-mode: soft-light,screen;
+        background-blend-mode: soft-light,screen; */
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        box-shadow: 0px 0px 20px 0px;
+        /* box-shadow: 0px 0px 20px 0px; */
+        min-width: 285px;
     }
     #icon {
         width: 90px;
         height: 90px;
         border-radius: 50%;
     }
+    .ToLogin {
+        position: absolute;
+        right: 100px;
+        bottom: 50px;
+    }
 </style>
 <body>
     <div class="main">
             <div class="table">
-                <img src="./telegaIcon.jpg" alt="" id="icon">
-                <h3>Register in out telega</h3>
-                <p>Login</p>
+                <img src="./imgs/telegaIcon.jpg" alt="" id="icon">
+                <h3 style="font-size: 30px;">Register in out telega</h3>
+                <p style="color: red;" id="error"></p>
+                <p>Telephone</p>
                     <div>
-                        <input type="text" placeholder="Enter Login">
+                        <input type="text" placeholder="Enter Telephone" class="FieldInput">
                     </div>
-                <p>Password</p>
+                <p style="margin-top: 25px;">Login</p>
                     <div>
-                        <input type="password" placeholder="Enter Password">
+                        <input type="password" placeholder="Enter Login" class="FieldInput">
                     </div>
-                <button class="reg_button">register</button>
+                <button class="RegButton">register</button>
+        </div>
+        <div>
+            <a class="ToLogin" style="margin-left: 15px;" href="./login">To Login</a>
         </div>
         
     </div>
 </body>
+<script>
+    const [phoneInput, loginInput] = document.querySelectorAll('.FieldInput');
+    const error = document.getElementById('error');
+    const button = document.querySelector('.RegButton');
+    button.addEventListener('click', () => {
+        const data = {
+            phone: phoneInput.value,
+            login: loginInput.value
+        };
+            fetch('/req', {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(answer => {
+            if (answer.type = 'success') {
+                error.style.color = 'green';
+            } else {
+                error.style.color = 'red';
+            }
+            error.innerHTML = answer.msg;
+        });
+    })
+</script>
 </html>
