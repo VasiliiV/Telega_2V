@@ -6,7 +6,10 @@ const http = require("http");
 const fs = require("fs");
 const { response } = require("express");
 const mock = require('./mock');
+const { parse } = require("path");
+const console = require("console");
 
+const users = {};
 
 const requestListener = function (req, res) {
     if (req.url === '/') {
@@ -133,7 +136,27 @@ const requestListener = function (req, res) {
         const stringData = JSON.stringify(mock.chats);
         res.end(stringData);
     }
-    else {
+    else if (req.url === '/req') {
+        let data = '';
+        req.on('data', (chunk) => {
+            data += chunk;
+        });
+        req.on('end', () => {
+            const user = JSON.parse(data);
+            let answer;
+            if (users[user.phone]) {
+                answer = {msg: 'User exists', type: 'error'};
+
+            } else {
+                users[user.phone] = user;
+                answer = {msg: 'User added', type: 'success'};
+
+            }
+            res.end(JSON.stringify(answer));
+            console.log(users)
+            
+        })
+    } else {
         const html = fs.readFileSync("./error.html");
         res.writeHead(200, {'Content-Type': 'text/html'});
         res.write(html);
