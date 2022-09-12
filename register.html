@@ -116,7 +116,7 @@
         })
         .then(response => response.json())
         .then(answer => {
-            if (answer.type = 'success') {
+            if (answer.type === 'success') {
                 error.style.color = 'green';
             } else {
                 error.style.color = 'red';
