@@ -18,10 +18,29 @@ const requestListener = function (req, res) {
         res.write(html);
         res.end('');
     } else if (req.url === '/login') {
-        const html = fs.readFileSync("./login.html");
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.write(html);
-        res.end('');
+        if (req.method === 'GET') {
+            const html = fs.readFileSync("./login.html");
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.write(html);
+            res.end('');
+        } else if(req.method === 'POST') {
+            let data = '';
+            req.on('data', (chunk) => {
+                data += chunk;
+            });
+            req.on('end', () => {
+                let answer;
+                if (users[data]) {
+                    answer = 'Exists'
+                } else {
+                    answer = 'No such user'
+                }
+                res.end(answer);
+            })
+        } else {
+            req.end();
+        }
+        
     }
     else if (req.url === '/register') {
         const html = fs.readFileSync("./register.html");
