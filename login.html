@@ -18,14 +18,14 @@
         align-items: center;
         flex-direction: column;
     }
-    .FieldInputTelephone {
+    .FieldInput {
         outline: none;
         border-width: 0;
         border-bottom-width: 2;
         width: 220px;
         height: 32px;
     }
-    .FieldInputTelephone:focus {
+    .FieldInput:focus {
         border-color: #61a8de;
     }
     .FieldInputLogin {
@@ -40,7 +40,7 @@
     }
     
     
-    .Login {
+    .RegButton {
         text-transform: uppercase;
         cursor: pointer;
         margin-top: 60px;
@@ -59,7 +59,7 @@
         color: white;
         font-weight: 600;
     }
-    .Login:hover {
+    .RegButton:hover {
         opacity: 0.9;
     }
     /* @keyframes reg_button */ {
@@ -99,13 +99,22 @@
                 <img src="./imgs/telegaIcon.jpg" alt="" id="icon">
                 <h3 style="font-size: 30px; margin-bottom: 70px;">Login by phone number</h3>
                     <div>
-                        <input type="text" placeholder="Enter Telephone" class="FieldInputTelephone">
+                        <input type="text" placeholder="Enter Telephone" class="FieldInput">
                     </div>
                 <div>
-                    <button class="Login">Login</button>
+                    <button class="RegButton" onclick="login()">Login</button>
                 </div>    
         </div>
         <a class="ToRegistration" style="margin-left: 15px;" href="./register">To registration</a>
     </div>
 </body>
+<script>
+    const LoginFieldInput = document.querySelector('.FieldInput')
+    function login() {
+        fetch('/login', {
+            method: 'POST',
+            body: LoginFieldInput.value
+        })
+    }
+</script>
 </html>
