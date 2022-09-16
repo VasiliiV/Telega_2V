@@ -1,3 +1,9 @@
+/* if (localStorage.getItem('user')) {
+    main();
+} else {
+    location.assign('./login');
+} */
+
 const newMessage = document.querySelector('.Content_newMassageInput');
 const sendIcon = document.querySelector('.Content_newMassageRecord');
 
@@ -123,6 +129,7 @@ function renderMessagesArray(msgArr) {
             </div>
         `);
         }
+        
     });
 }
 
