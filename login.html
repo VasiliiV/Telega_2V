@@ -109,11 +109,19 @@
     </div>
 </body>
 <script>
-    const LoginFieldInput = document.querySelector('.FieldInput')
+    const loginFieldInput = document.querySelector('.FieldInput')
     function login() {
         fetch('/login', {
             method: 'POST',
-            body: LoginFieldInput.value
+            body: loginFieldInput.value
+        }).then(response => response.text())
+        .then((answerText) => {
+            if (answerText === 'Exists') {
+                localStorage.setItem('user', loginFieldInput.value);
+                window.location.assign('/');
+            } else { 
+                alert(answerText);
+            }
         })
     }
 </script>
