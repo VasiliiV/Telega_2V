@@ -3,6 +3,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        if (!localStorage.getItem('user')) {
+            location.assign('./login');
+        }
+    </script>
     <link rel="shortcut icon" href="./imgs/1646438278_4-damion-club-p-obezyana-s-sigaroi-art-4.jpg" type="image/jpeg">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
@@ -52,9 +57,12 @@
                         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
                         <span class="material-symbols-outlined">search</span>
                         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
-                        <span class="material-symbols-outlined">menu</span>
-                        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
                         <span class="material-symbols-outlined">wifi_calling_3</span>
+                        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+                        <span class="material-symbols-outlined" onclick="
+                            localStorage.removeItem('user');
+                            location.assign('/login')
+                        ">menu</span>
                     </div>
                 </div>
             </div>
