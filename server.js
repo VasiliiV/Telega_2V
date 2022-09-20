@@ -152,7 +152,17 @@ const requestListener = function (req, res) {
         res.end(stringMessages);
     }
     else if (req.url === '/chats') {
-        const stringData = JSON.stringify(mock.chats);
+    //add users in server
+        const usersArray = Object.values(users);
+        const chats = usersArray.map((user) => {
+            return {
+                avatar: './imgs/user.png',
+                header: user.login + ' ' + user.phone,
+                previewMessage: 'Hello friends!',
+                lastTime: '00:20'
+            }
+        })
+        const stringData = JSON.stringify(chats);
         res.end(stringData);
     }
     else if (req.url === '/req') {
