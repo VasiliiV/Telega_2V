@@ -65,7 +65,12 @@ function readerChats(chats) {
     }
     chats.forEach((chat) => {
         SidebarLeftBody.insertAdjacentHTML('beforeend', `
-        <div class="SidebarLeft_chat">
+        <div class="SidebarLeft_chat"; onclick="
+        const contentHeader = document.querySelector('.Content_header');
+        contentHeader.style.display = 'flex';
+        const contentBody = document.querySelector('.Content_body');
+        contentBody.style.display = 'flex';
+        ";>
                         <div style="display: flex; flex-grow: 1;">
                             <div class="SidebarLeft_avatar">
                                 <img src=${chat.avatar}>
@@ -168,4 +173,6 @@ function readerChatsFromServer() {
         });
     })
 }
-readerChatsFromServer();
+setInterval(() => {
+    readerChatsFromServer();
+}, 1000)
