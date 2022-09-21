@@ -53,7 +53,7 @@ sendIcon.addEventListener('click', () => {
 
 const SidebarLeftBody = document.querySelector('.SidebarLeft_body');
 
-function readerChats(chats) {
+function renderChats(chats) {
     SidebarLeftBody.innerHTML = '';
     if (chats.length === 0) {
         SidebarLeftBody.insertAdjacentHTML('beforeend', `
@@ -63,6 +63,8 @@ function readerChats(chats) {
         </div>
         `);
     }
+}
+function renderNewChats(chats) {
     chats.forEach((chat) => {
         SidebarLeftBody.insertAdjacentHTML('beforeend', `
         <div class="SidebarLeft_chat"; onclick="
@@ -89,8 +91,7 @@ function readerChats(chats) {
         `);
     });
 }
-/* readerChats(chats); */
-
+/* renderChats(chats); */
 
 
 //поиск по контактам. Фильтр. SearchChat
@@ -100,7 +101,7 @@ const SidebarLeftSearchInput = document.querySelector('.SidebarLeft_searchInput'
 SidebarLeftSearchInput.addEventListener('input', (e) => {
     const filteredChats = chats.filter((chat) => chat.header.includes(e.target.value));
 
-    readerChats(filteredChats);
+    renderChats(filteredChats);
 })
 
 function renderMessagesArray(msgArr) {
@@ -164,15 +165,42 @@ function readerMessagesFromServer() {
 }
 readerMessagesFromServer();
 
-function readerChatsFromServer() {
+function renderChatsFromServer() {
     fetch('/chats', {
         method: 'GET'
     }).then((response) => {
         response.json().then((data) => {
-            readerChats(data);
+            renderChats(data);
         });
     })
 }
+
+function renderOnlyNewChats(){
+    fetch('/chats', {
+        method: 'GET'
+    }).then((response) => {
+        response.json().then((data) => {
+            const headersElement = document.querySelectorAll('.SidebarLeft_HeaderChatInfo h3');
+            const headersText = {};
+            for (let i = 0; i < headersElement.length; i++) {
+                const element = headersElement[i];
+                headersText[element.innerHTML] = true;
+                console.log();
+            }
+            const newChats = data.filter((chat) => {
+                const header = chat.header;
+                if (headersText[header]) {
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+            renderNewChats(newChats);
+        });
+    })
+}
+
+renderChatsFromServer();
 setInterval(() => {
-    readerChatsFromServer();
+    renderOnlyNewChats();
 }, 1000)
