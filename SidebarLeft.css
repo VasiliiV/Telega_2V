@@ -96,6 +96,11 @@
 /*     background-color: rgb(217, 215, 215); */
     border-radius: 12px;
     position: relative;
+    cursor: pointer;
+    transition: background-color 0.1s linear;
+}
+.SidebarLeft_chat:hover {
+    background-color: rgba(95, 95, 95, 0.096);
 }
 
 .SidebarLeft_avatar img{
