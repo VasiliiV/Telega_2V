@@ -67,12 +67,7 @@ function renderChats(chats) {
 function renderNewChats(chats) {
     chats.forEach((chat) => {
         SidebarLeftBody.insertAdjacentHTML('beforeend', `
-        <div class="SidebarLeft_chat"; onclick="
-        const contentHeader = document.querySelector('.Content_header');
-        contentHeader.style.display = 'flex';
-        const contentBody = document.querySelector('.Content_body');
-        contentBody.style.display = 'flex';
-        ";>
+        <div class="SidebarLeft_chat"; onclick="chooseChat(event)";>
                         <div style="display: flex; flex-grow: 1;">
                             <div class="SidebarLeft_avatar">
                                 <img src=${chat.avatar}>
@@ -91,6 +86,16 @@ function renderNewChats(chats) {
         `);
     });
 }
+
+function chooseChat(event) {
+    const contentHeader = document.querySelector('.Content_header');
+        contentHeader.style.display = 'flex';
+        const contentBody = document.querySelector('.Content_body');
+        contentBody.style.display = 'flex';
+        const header = event.currentTarget.querySelector('.SidebarLeft_HeaderChatInfo h3')
+        console.log(header.innerHTML);
+}
+
 /* renderChats(chats); */
 
 
