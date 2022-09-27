@@ -9,7 +9,9 @@ const mock = require('./mock');
 const { parse } = require("path");
 const console = require("console");
 
-const users = {};
+const messages = {};
+
+
 
 const requestListener = function (req, res) {
     if (req.url === '/') {
@@ -30,7 +32,7 @@ const requestListener = function (req, res) {
             });
             req.on('end', () => {
                 let answer;
-                if (users[data]) {
+                if (checkUserInFile(data)) {
                     answer = 'Exists'
                 } else {
                     answer = 'No such user'
@@ -148,16 +150,30 @@ const requestListener = function (req, res) {
         res.end();
     }
     else if (req.url === '/messages') {
-        const stringMessages = JSON.stringify(mock.messages);
-        res.end(stringMessages);
+        if (req.method === 'GET') {
+            const stringMessages = JSON.stringify(mock.messages);
+            res.end(stringMessages);
+        } else if(req.method === 'POST') {
+                let data = '';
+                req.on('data', (chunk) => {
+                    data += chunk;
+                });
+                req.on('end', () => {
+                    console.log(data);
+                })
+        } else {
+            req.end();
+        }
+        
     }
     else if (req.url === '/chats') {
     //add users in server
+        const users = getUserFromFile();
         const usersArray = Object.values(users);
         const chats = usersArray.map((user) => {
             return {
                 avatar: './imgs/user.png',
-                header: user.login + ' ' + user.phone,
+                header: user.nick + ' ' + user.phone,
                 previewMessage: 'Hello friends!',
                 lastTime: '00:20'
             }
@@ -172,18 +188,20 @@ const requestListener = function (req, res) {
         });
         req.on('end', () => {
             const user = JSON.parse(data);
+           /* user ->  {
+                phone: string,
+                login: string
+            }; */
             let answer;
-            if (users[user.phone]) {
+            if (checkUserInFile(user.phone)) {
                 answer = {msg: 'User exists', type: 'error'};
 
             } else {
-                users[user.phone] = user;
+                addUserToFile(user.nick + ' ' + user.phone)
                 answer = {msg: 'User added', type: 'success'};
 
             }
-            res.end(JSON.stringify(answer));
-            console.log(users)
-            
+            res.end(JSON.stringify(answer));            
         })
     } else {
         const html = fs.readFileSync("./error.html");
@@ -197,3 +215,39 @@ const server = http.createServer(requestListener);
 server.listen(port, host, () => {
     console.log(`Server is running on http://${host}:${port}`);
 });
+
+//for database from files
+//userString -> Feda 123123
+function addUserToFile(userString) {
+    const usersFromFiles = fs.readFileSync("./users.txt", "utf8");
+    if (!usersFromFiles) {
+        fs.writeFileSync("./users.txt", userString)
+    } else {
+        fs.writeFileSync("./users.txt", usersFromFiles + "\n" + userString)
+    }
+}
+
+function getUserFromFile() {
+    const usersFromFiles = fs.readFileSync("./users.txt", "utf8");
+
+    if (usersFromFiles === '') {
+        return[]
+    }
+
+    return usersFromFiles.split('\n').map((raw) => {
+        const arrayOfUser = raw.split(' ');
+        const nick = arrayOfUser[0];
+        const phone = arrayOfUser[1];
+        return {
+            nick: nick,
+            phone: phone,
+        };
+    });
+}
+
+function checkUserInFile(phone) {
+    const UserFromFile = getUserFromFile();
+    return UserFromFile.find((user) => {
+        return user.phone === phone
+    })
+}
