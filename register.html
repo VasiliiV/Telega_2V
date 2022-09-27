@@ -24,6 +24,7 @@
         border-bottom-width: 2;
         width: 220px;
         height: 32px;
+        margin-bottom: 2em;
     }
     .FieldInput:focus {
         border-color: #61a8de;
@@ -66,7 +67,7 @@
         align-items: center;
         flex-direction: column;
         /* box-shadow: 0px 0px 20px 0px; */
-        min-width: 285px;
+        /* min-width: 285px; */
     }
     #icon {
         width: 90px;
@@ -84,14 +85,12 @@
             <div class="table">
                 <img src="./imgs/telegaIcon.jpg" alt="" id="icon">
                 <h3 style="font-size: 30px;">Register in out telega</h3>
-                <p id="error"></p>
-                <p>Telephone</p>
+                <p id="error" style="height: 20px; margin: 0px;"></p>
                     <div>
-                        <input type="text" placeholder="Enter Telephone" class="FieldInput">
+                        <input type="text" placeholder="Phone number" class="FieldInput">
                     </div>
-                <p style="margin-top: 25px;">Login</p>
                     <div>
-                        <input type="password" placeholder="Enter Login" class="FieldInput">
+                        <input type="password" placeholder="Nickname" class="FieldInput">
                     </div>
                 <button class="RegButton">register</button>
         </div>
@@ -102,13 +101,13 @@
     </div>
 </body>
 <script>
-    const [phoneInput, loginInput] = document.querySelectorAll('.FieldInput');
+    const [phoneInput, nickInput] = document.querySelectorAll('.FieldInput');
     const error = document.getElementById('error');
     const button = document.querySelector('.RegButton');
     button.addEventListener('click', () => {
         const data = {
             phone: phoneInput.value,
-            login: loginInput.value
+            nick: nickInput.value
         };
             fetch('/req', {
             method: "POST",
