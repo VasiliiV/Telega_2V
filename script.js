@@ -113,7 +113,20 @@ function chooseChat(event) {
         const text = header.innerHTML;
         
         document.querySelector('.Content_HeaderChatInfo h3').innerHTML = text;
+
+        const MyPhone = localStorage.getItem('user');
+        const sobesednikPhone = text.split(' ')[1];
+
+        fetch(`/messages?myPhone=${MyPhone}&sobesednikPhone=${sobesednikPhone}`, {
+            method: 'GET'
+        })
+        .then(res => res.json())
+        .then(messages => {
+            renderMessagesArray(messages);
+        });
 }
+
+
 
 /* renderChats(chats); */
 
