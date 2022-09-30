@@ -1,2 +1,1 @@
-{"text":"Hello", "ourNumber":"777", "sobesednik":"Dima 444"}
-{"text":"Hello", "ourNumber":"666", "sobesednik":"Feda 333"}
+
