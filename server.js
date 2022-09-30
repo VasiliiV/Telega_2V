@@ -149,9 +149,18 @@ const requestListener = function (req, res) {
         res.write(image);
         res.end();
     }
-    else if (req.url === '/messages') {
+    else if (req.url.includes('/messages')) {
         if (req.method === 'GET') {
-            const stringMessages = JSON.stringify(mock.messages);
+            const queriString = req.url.split('?')[1];
+            if (!queriString) {
+                return res.end('[]');
+            }
+            let [myPhone, sobesednik] = queriString.split('&');
+            myPhone = myPhone.split('=')[1];
+            sobesednik = sobesednik.split('=')[1];
+
+            const msgsByPhone = getMessagesByPhone(myPhone, sobesednik);
+            const stringMessages = JSON.stringify(msgsByPhone);
             res.end(stringMessages);
         } else if(req.method === 'POST') {
                 let data = '';
@@ -162,7 +171,7 @@ const requestListener = function (req, res) {
                     console.log(data);
                 })
         } else {
-            req.end();
+            req.end('[]');
         }
         
     }
@@ -249,5 +258,46 @@ function checkUserInFile(phone) {
     const UserFromFile = getUserFromFile();
     return UserFromFile.find((user) => {
         return user.phone === phone
+    })
+}
+
+function getAllMessages() {
+    const messages = fs.readFileSync("./messages.txt", 'utf-8');
+    if (!messages) {
+        return [];
+    }
+
+    return messages.split('/n').map((raw) => {
+        return JSON.parse(raw);
+    });
+}
+
+function getMessagesByPhone(our, his) {
+    let msgs = getAllMessages();
+
+    msgs = msgs.filter(({ourNumber, sobesednik}) => {
+        const sobesednikPhone = sobesednik.split(' ')[1];
+        if (our === ourNumber && his === sobesednikPhone) {
+            return true;
+        }
+        if (his === ourNumber && our === sobesednikPhone) {
+            return false;
+        }
+        return false;
+    });
+
+    return msgs.map((msg) => {
+        const sobesednikPhone = msg.sobesednik.split(' ')[1];
+        if (our === msg.ourNumber && his === sobesednikPhone) {
+            return {
+                ...msg,
+                type: 'my'
+            };
+        } else {
+            return {
+                ...msg,
+                type: 'your'
+            };
+        }
     })
 }
