@@ -159,6 +159,7 @@ const requestListener = function (req, res) {
             myPhone = myPhone.split('=')[1];
             sobesednik = sobesednik.split('=')[1];
 
+
             const msgsByPhone = getMessagesByPhone(myPhone, sobesednik);
             const stringMessages = JSON.stringify(msgsByPhone);
             res.end(stringMessages);
@@ -168,7 +169,7 @@ const requestListener = function (req, res) {
                     data += chunk;
                 });
                 req.on('end', () => {
-                    console.log(data);
+                    saveMessageToFile(data);
                 })
         } else {
             req.end('[]');
@@ -228,6 +229,7 @@ server.listen(port, host, () => {
 //for database from files
 //userString -> Feda 123123
 function addUserToFile(userString) {
+    
     const usersFromFiles = fs.readFileSync("./users.txt", "utf8");
     if (!usersFromFiles) {
         fs.writeFileSync("./users.txt", userString)
@@ -262,7 +264,7 @@ function checkUserInFile(phone) {
 }
 
 function getAllMessages() {
-    const messages = fs.readFileSync("./messages.txt", 'utf-8');
+    const messages = fs.readFileSync("./messages.txt", "utf-8");
     if (!messages) {
         return [];
     }
@@ -281,9 +283,9 @@ function getMessagesByPhone(our, his) {
             return true;
         }
         if (his === ourNumber && our === sobesednikPhone) {
-            return false;
+            return true;
         }
-        return false;
+        return false;   
     });
 
     return msgs.map((msg) => {
@@ -300,4 +302,15 @@ function getMessagesByPhone(our, his) {
             };
         }
     })
+}
+
+function saveMessageToFile(msg) {
+    const filename = "./messages.txt";
+    const messages = fs.readFileSync(filename, "utf8");
+
+    if (!messages) {
+        fs.writeFileSync(filename, msg)
+    } else {
+        fs.writeFileSync(filename, messages + "\n" + msg)
+    }
 }
