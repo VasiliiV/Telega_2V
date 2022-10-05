@@ -158,6 +158,7 @@ const requestListener = function (req, res) {
             let [myPhone, sobesednik] = queriString.split('&');
             myPhone = myPhone.split('=')[1];
             sobesednik = sobesednik.split('=')[1];
+            //sobesednik определеяет "123"
 
 
             const msgsByPhone = getMessagesByPhone(myPhone, sobesednik);
@@ -178,8 +179,9 @@ const requestListener = function (req, res) {
     }
     else if (req.url === '/chats') {
     //add users in server
-        const users = getUserFromFile();
-        const usersArray = Object.values(users);
+        /* const users = getUserFromFile();
+        const usersArray = Object.values(users); */
+        const usersArray = getUserFromFile();
         const chats = usersArray.map((user) => {
             return {
                 avatar: './imgs/user.png',
@@ -278,7 +280,12 @@ function getMessagesByPhone(our, his) {
     let msgs = getAllMessages();
 
     msgs = msgs.filter(({ourNumber, sobesednik}) => {
+
+        typeof sobesednik;
+        console.log(sobesednik); 
         const sobesednikPhone = sobesednik.split(' ')[1];
+        
+                
         if (our === ourNumber && his === sobesednikPhone) {
             return true;
         }
