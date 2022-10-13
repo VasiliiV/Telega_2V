@@ -63,14 +63,18 @@ function sendMessageToServer(msgText, hoursMinutes) {
             sebesednik: document.querySelector('.Content_HeaderChatInfo h3').innerHTML,
             time: hoursMinutes
         })
+        
     });
+    
 }
+
 
 
 //Рендер чатов (массив с контактами ушел в mock.js)
 
 const SidebarLeftBody = document.querySelector('.SidebarLeft_body');
 
+// сообщаем, что нету пользователей
 function renderChats(chats) {
     SidebarLeftBody.innerHTML = '';
     if (chats.length === 0) {
@@ -82,6 +86,8 @@ function renderChats(chats) {
         `);
     }
 }
+
+//кликаем на пользователя и появляется отображение правой панели с чатом
 function renderNewChats(chats) {
     chats.forEach((chat) => {
         SidebarLeftBody.insertAdjacentHTML('beforeend', `
@@ -105,21 +111,21 @@ function renderNewChats(chats) {
     });
 }
 
+//после клика меняется имя человека сверху на того, которого кликнули, то есть правый заголовок равен левому
 function chooseChat(event) {
-    const contentHeader = document.querySelector('.Content_header');
+        const contentHeader = document.querySelector('.Content_header');
         contentHeader.style.display = 'flex';
         const contentBody = document.querySelector('.Content_body');
         contentBody.style.display = 'flex';
         const header = event.currentTarget.querySelector('.SidebarLeft_HeaderChatInfo h3');
         const text = header.innerHTML;
-        console.log(header);
-        console.log(text);
+       
         
         document.querySelector('.Content_HeaderChatInfo h3').innerHTML = text;
 
         const MyPhone = localStorage.getItem('user');
         const sobesednikPhone = text.split(' ')[1];
-        console.log(sobesednikPhone);
+        
 
         fetch(`/messages?myPhone=${MyPhone}&sobesednikPhone=${sobesednikPhone}`, {
             method: 'GET'
@@ -136,7 +142,6 @@ function chooseChat(event) {
 
 
 //поиск по контактам. Фильтр. SearchChat
-
 const SidebarLeftSearchInput = document.querySelector('.SidebarLeft_searchInput');
 
 SidebarLeftSearchInput.addEventListener('input', (e) => {
