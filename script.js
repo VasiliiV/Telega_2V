@@ -110,7 +110,7 @@ function chooseChat(event) {
         contentHeader.style.display = 'flex';
         const contentBody = document.querySelector('.Content_body');
         contentBody.style.display = 'flex';
-        const header = event.currentTarget.querySelector('.SidebarLeft_HeaderChatInfo h3')
+        const header = event.currentTarget.querySelector('.SidebarLeft_HeaderChatInfo h3');
         const text = header.innerHTML;
         console.log(header);
         console.log(text);
