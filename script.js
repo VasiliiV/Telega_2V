@@ -123,7 +123,7 @@ function chooseChat(event) {
         
         document.querySelector('.Content_HeaderChatInfo h3').innerHTML = text;
 
-        const MyPhone = localStorage.getItem('user');
+        const MyPhone = localStorage.getItem('user'); //дергает Phone number из локал сторидж
         const sobesednikPhone = text.split(' ')[1];
         
 
