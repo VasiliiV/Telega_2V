@@ -156,9 +156,10 @@ const requestListener = function (req, res) {
                 return res.end('[]');
             }
             let [myPhone, sobesednik] = queriString.split('&');
-            myPhone = myPhone.split('=')[1];
-            sobesednik = sobesednik.split('=')[1];
-            //sobesednik определеяет "123"
+            myPhone = myPhone.split('=')[1]; //определяет user авторизованного, например 444
+            sobesednik = sobesednik.split('=')[1]; //определяет Phone number собеседника, например 123
+            
+            
 
 
             const msgsByPhone = getMessagesByPhone(myPhone, sobesednik);
