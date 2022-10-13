@@ -280,11 +280,11 @@ function getAllMessages() {
 function getMessagesByPhone(our, his) {
     let msgs = getAllMessages();
 
-    msgs = msgs.filter(({ourNumber, sobesednik}) => {
+    msgs = msgs.filter(({ourNumber, sebesednik}) => {
 
         typeof sobesednik;
         console.log(sobesednik); 
-        const sobesednikPhone = sobesednik.split(' ')[1];
+        const sobesednikPhone = sebesednik.split(' ')[1];
         
                 
         if (our === ourNumber && his === sobesednikPhone) {
@@ -297,7 +297,7 @@ function getMessagesByPhone(our, his) {
     });
 
     return msgs.map((msg) => {
-        const sobesednikPhone = msg.sobesednik.split(' ')[1];
+        const sobesednikPhone = msg.sebesednik.split(' ')[1];
         if (our === msg.ourNumber && his === sobesednikPhone) {
             return {
                 ...msg,
