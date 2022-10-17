@@ -241,6 +241,7 @@ function addUserToFile(userString) {
     }
 }
 
+//чтения файла и возврата его содержимого
 function getUserFromFile() {
     const usersFromFiles = fs.readFileSync("./users.txt", "utf8");
 
